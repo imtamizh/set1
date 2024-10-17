@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Two Sum</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      input[type="text"] {
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 15px;
+      }
+      .result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Two Sum</h1>
+    <input
+      type="text"
+      id="arrayInput"
+      placeholder="Enter integers separated by commas"
+    />
+    <input type="text" id="targetInput" placeholder="Enter target sum" />
+    <button onclick="findTwoSum()">Find Indices</button>
+    <div class="result" id="result"></div>
+
+    <script>
+      function findTwoSum() {
+        const input = document.getElementById("arrayInput").value;
+        const target = parseInt(document.getElementById("targetInput").value);
+        // Convert input string to an array of numbers
+        const arr = input.split(",").map(Number);
+
+        if (arr.length === 0 || arr.some(isNaN)) {
+          document.getElementById("result").textContent =
+            "Please enter valid integers for the array.";
+          return;
+        }
+        // Create a map to store number and its index
+        const numIndices = new Map();
+
+        for (let i = 0; i < arr.length; i++) {
+          // Calculate the complement
+          const complement = target - arr[i];
+          if (numIndices.has(complement)) {
+            // If the complement exists in the map, return the indices
+            document.getElementById(
+              "result"
+            ).textContent = `Indices: ${numIndices.get(complement)}, ${i}`;
+            return;
+          }
+          // Otherwise, add the number and its index to the map
+          numIndices.set(arr[i], i);
+        }
+
+        document.getElementById("result").textContent =
+          "No two sum solution found.";
+      }
+    </script>
+  </body>
+</html>
